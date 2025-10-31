@@ -40,7 +40,6 @@ header{
  justify-content: space-between;
  align-items: center;
  width: 1280px;
- 
 }
 .kino{
  margin: -6px 4px 0px 4px;
@@ -129,39 +128,6 @@ header{
   width: 26px;
   height: 26px;
 }
-.Container2{
-  justify-content: center;
-  height: 2000px;
-  width: 100%;
-  display: flex;
-  color: black;
-  opacity: 80%;
-  border: gray;
-  border-left: 1px;
-  border-right: 1px;
-  border-top: 0px;
-  border-bottom: 0px;
-  border-style: groove;
-}
-.Container3{
-  background-color: white;
-  border-left: 2px;
-  border-right: 2px;
-  border-top: 0px;
-  border-style: groove;
-  width: 1280px;
-  height: 2000px;
-}
-.Container4{
-  background-color: white;
-  border-left: 0px;
-  border-right: 2px;
-  border-top: 0px;
-  border-style: groove;
-  width: 280px;
-  height: 2000px;
-}
-
 .InYan{
  width: 40px;
  height: 40px;
@@ -182,6 +148,66 @@ header{
 .rotated .InYan {
   transform: rotate(180deg);
 }
+
+
+.Container2{
+  justify-content: center;
+  height: 2000px;
+  width: 100%;
+  display: flex;
+  color: black;
+  opacity: 80%;
+  border: gray;
+  border-left: 1px;
+  border-right: 1px;
+  border-top: 0px;
+  border-bottom: 0px;
+  border-style: groove;
+}
+.Container3{
+  display: flex;
+  background-color: white;
+  border-left: 2px;
+  border-right: 2px;
+  border-top: 0px;
+  border-style: groove;
+  width: 1280px;
+  height: 2000px;
+}
+.Container4{
+  border-left: 0px;
+  border-right: 2px;
+  border-top: 0px;
+  border-style: groove;
+  width: 280px;
+  height: 2000px;
+}
+.LeftButton{
+  margin: 20px 0px 0px 10px;
+  border: none;
+  font-family: "Kelly Slab", sans-serif; 
+  font-size: 30px;
+  background-color: 	#ffffff;
+  color: rgb(0, 0, 0);
+}
+.LeftButton:hover{
+ text-shadow: 0px 1px black;
+ opacity: 95%;
+ cursor: pointer;
+}
+
+.Container5{
+  display: inline-flex;
+  justify-content: center;
+  width: 1000px;
+  height: 2000px;
+}
+
+.novinkiText{
+  font-size: 48px;
+  margin-top: 56px;
+}
+
 
  
 

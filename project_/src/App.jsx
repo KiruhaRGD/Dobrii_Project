@@ -7,6 +7,12 @@ import found from './found.png'
 import Logo from './Logo.png'
 import InYan from './inyan.png'
 import stena from './stena.png'
+import glavnaya from './glavnaya.png'
+import podbor from './podbor.png'
+import zakladki from './zakladki.png'
+import Filmi from './Filmi.png'
+import Seriali from './Seriali.png'
+
 function App() {
   const [darkMode, setDarkMode] = useState(false)
 
@@ -42,7 +48,16 @@ function App() {
         <div className='Container2'>
              <div className='Container3'>
                 <div className='Container4'>
-                  
+                  <button className='LeftButton'> <img src={glavnaya} alt='image sdox' className='kino'/>Главная </button>
+                  <button className='LeftButton'> <img src={podbor} alt='image sdox' className='kino'/>Подбор фильма </button>
+                  <button className='LeftButton'> <img src={zakladki} alt='image sdox' className='kino'/>Закладки </button>
+                  <button className='LeftButton'> <img src={Filmi} alt='image sdox' className='kino'/>Фильмы </button>
+                  <button className='LeftButton'> <img src={Seriali} alt='image sdox' className='kino'/>Сериалы </button>
+                </div>
+                <div className='Container5'>
+                  <div className='novinkiText'>Новинки кино!</div>
+                  <div className='sliderNovinki'></div>
+
                 </div>
              </div>
         </div>
