@@ -24,6 +24,41 @@ body{
   color: #f5f5f5;
   transition: all 0.6s ease;
 }
+.dark-theme header{
+  background-color: #932828;
+  color: #ffffff;
+}
+.dark-theme .Logo{
+  background-color: #932828;
+  color: #ffffff;
+  
+}
+.dark-theme .Container{
+  background-color: #932828;
+  color: #ffffff;
+
+}
+.dark-theme .MainButton{
+  background-color: #932828;
+}
+
+.dark-theme .LeftButton{
+  background-color: #666666;
+  color:#ffffff;
+  opacity: 100%;
+}
+.dark-theme .Container3{
+  background-color: #666666;
+  border-color: #666666;
+}
+.dark-theme .Container4{
+  border-color: #808080;
+}
+.dark-theme .Container5{
+  background-color: #666666;
+  color:#ffffff;
+  opacity: 100%;
+}
 button, img, input {
   vertical-align: middle;
 }
@@ -157,12 +192,7 @@ header{
   display: flex;
   color: black;
   opacity: 80%;
-  border: gray;
-  border-left: 1px;
-  border-right: 1px;
-  border-top: 0px;
-  border-bottom: 0px;
-  border-style: groove;
+
 }
 .Container3{
   display: flex;
