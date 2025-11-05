@@ -1,66 +1,100 @@
-const UserModel = require('../services/userService');
-const userService = require('../services/userService');
+const userModel = require('../models/userModel');
 
-class UserController {
-  async getAllUsers(req, res) {
+// Получить всех пользователей
+async function getUsers(req, res) {
     try {
-      const users = await userService.listUser();
-      res.json(users);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
+        const users = await userModel.getAllUsers();
+        res.json(users);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
-  }
-
-  async getUserById(req, res) {
-    try {
-      const user = await UserModel.getUserById(req.params.id);
-      if (!user) {
-        return res.status(404).json({ error: 'User not found' });
-      }
-      res.json(user);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  }
-
-  async createUser(req, res) {
-    try {
-      const { name, email, age } = req.body;
-      
-      if (name,  email,  age) {
-        return res.status(400).json({ error: 'Name, email and age are required' });
-      }
-
-      const newUser = await UserModel.addUser({ name, email, age });
-      res.status(201).json(newUser);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  }
-
-  async updateUser(req, res) {
-    try {
-      const updatedUser = await UserModel.updateUser(req.params.id, req.body);
-      if (!updatedUser) {
-        return res.status(404).json({ error: 'User not found' });
-      }
-      res.json(updatedUser);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  }
-
-  async deleteUser(req, res) {
-    try {
-      const deletedUser = await UserModel.deleteUser(req.params.id);
-      if (!deletedUser) {
-        return res.status(404).json({ error: 'User not found' });
-      }
-      res.json({ message: 'User deleted successfully', user: deletedUser });
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  }
 }
 
-module.exports = new UserController();
+// Создать пользователя
+async function createUser(req, res) {
+    try {
+        const { username, password } = req.body;
+      
+        
+        const newUser = await userModel.addUser({ username, password });
+        
+        // Не возвращаем пароль в ответе
+        const { password: _, ...userWithoutPassword } = newUser;
+        
+        res.status(201).json(userWithoutPassword);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
+
+// Получить пользователя по ID
+async function getUserById(req, res) {
+    try {
+        const id = req.params.id;
+        const user = await userModel.getUser({ id });
+        
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        
+        // Не возвращаем пароль в ответе
+        const { password, ...userWithoutPassword } = user;
+        
+        res.json(userWithoutPassword);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
+
+// Обновить пользователя по паролю (ВАША ВЕРСИЯ)
+async function updateUser(req, res) {
+    try {
+        const { username, password } = req.body;
+        
+        const updatedUser = await userModel.updateUser({ username, password });
+        
+        if (!updatedUser) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        
+        // Не возвращаем пароль в ответе
+        const { password: _, ...userWithoutPassword } = updatedUser;
+        
+        res.json(userWithoutPassword);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
+
+// Удалить пользователя по учетным данным
+async function deleteUser(req, res) {
+    try {
+        const { username, email, password } = req.body;
+        
+        const deletedUser = await userModel.deleteUser({ username, email, password });
+        
+        if (!deletedUser) {
+            return res.status(404).json({ error: 'User not found with provided credentials' });
+        }
+        
+        // Не возвращаем пароль в ответе
+        const { password: _, ...userWithoutPassword } = deletedUser;
+        
+        res.json({ 
+            message: 'User deleted successfully', 
+            user: userWithoutPassword 
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
+
+
+
+module.exports = {
+    getUsers,
+    createUser,
+    getUserById,
+    updateUser,
+    deleteUser
+};

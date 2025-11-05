@@ -1,66 +1,89 @@
-const filmService = require('../services/filmService');
+const filmModel = require('../models/filmModel');
 
-async function getFilms(req, res, next) {
-  try {
-    const films = await filmService.listFilms();
-    res.json(films);
-  } catch (err) {
-    next(err);
-  }
-}
-
-async function getFilmById(req, res, next) {
-  try {
-    const film = await filmService.getFilmById(req.params.id);
-    if (!film) {
-      return res.status(404).json({ error: 'Film not found' });
+// Получить все фильмы
+async function getFilms(req, res) {
+    try {
+        const films = await filmModel.getAllFilms();
+        res.json(films);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
-    res.json(film);
-  } catch (err) {
-    next(err);
-  }
 }
 
-async function createFilm(req, res, next) {
-  try {
-    const newFilm = await filmService.createFilm(req.body);
-    res.status(201).json(newFilm);
-  } catch (err) {
-    next(err);
-  }
-}
-
-async function updateFilm(req, res, next) {
-  try {
-    const updatedFilm = await filmService.updateFilm(req.params.id, req.body);
-    if (!updatedFilm) {
-      return res.status(404).json({ error: 'Film not found' });
+// Создать фильм
+async function createFilm(req, res) {
+    try {
+        const { name, date_release } = req.body;
+        
+        if (!name || !date_release) {
+            return res.status(400).json({ error: 'Name and date_release are required' });
+        }
+        
+        const newFilm = await filmModel.addFilm({ name, date_release });
+        res.status(201).json(newFilm);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
-    res.json(updatedFilm);
-  } catch (err) {
-    next(err);
-  }
 }
 
-
-async function deleteFilm(req, res, next) {
-  try {
-    const deletedFilm = await filmService.deleteFilm(req.params.id);
-    if (!deletedFilm) {
-      return res.status(404).json({ error: 'Film not found' });
+// Получить фильм по ID
+async function getFilmById(req, res) {
+    try {
+        const id = req.params.id;
+        const film = await filmModel.getFilm({ id });
+        
+        if (!film) {
+            return res.status(404).json({ error: 'Film not found' });
+        }
+        
+        res.json(film);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
-    res.status(204).send();
-  } catch (err) {
-    next(err);
-  }
 }
 
+// Обновить фильм
+async function updateFilm(req, res) {
+    try {
+        const id = req.params.id;
+        const { name, date_release } = req.body;
+        
+        if (!name || !date_release) {
+            return res.status(400).json({ error: 'Name and date_release are required' });
+        }
+        
+        const updatedFilm = await filmModel.updateFilm({ id, name, date_release });
+        
+        if (!updatedFilm) {
+            return res.status(404).json({ error: 'Film not found' });
+        }
+        
+        res.json(updatedFilm);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
 
+// Удалить фильм
+async function deleteFilm(req, res) {
+    try {
+        const id = req.params.id;
+        const deletedFilm = await filmModel.deleteFilm({ id });
+        
+        if (!deletedFilm) {
+            return res.status(404).json({ error: 'Film not found' });
+        }
+        
+        res.json({ message: 'Film deleted successfully', film: deletedFilm });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
 
 module.exports = {
-  getFilms,
-  getFilmById,
-  createFilm,
-  updateFilm,
-  deleteFilm,
+    getFilms,
+    createFilm,
+    getFilmById,
+    updateFilm,
+    deleteFilm
 };

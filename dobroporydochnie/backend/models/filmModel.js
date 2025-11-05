@@ -1,104 +1,47 @@
-// const db = require('../config/database');
-  
-
-//   async function getAllFilms() {
-//    const result = await db.query('SELECT * FROM film');
-//     return result.rows;
-//   }
-
-//   async function addFilm(title, year, genre) {
-//     const result = await db.query(
-//       'INSERT INTO film (title, year, genre) VALUES ($1, $2, $3) RETURNING *',
-//       [title, year, genre]
-//     );
-//     return result.rows[0];
-//   }
-
-//   async function deletefilms(id) {
-//     const result = await db.query('DELETE FROM film WHERE id = $1;', 
-//       [id]
-//     );
-//     return result.rows[0];
-//   }
-
-//   async function updatefilm(title, year, genre) {
-//     const result = await db.query('update film set (titlem, year, genre) = ($1, $2, $3);', 
-//       [title, year, genre]
-//     );
-//     return result.rows[0];
-//   }
-
-//   async function getFilm(id) {
-//     const result = await db.query('SELECT * FROM id = $1',
-//       [id]
-//     );
-//     return result.rows;
-//   }
-// module.exports = { getAllFilms, addFilm, deletefilms, updatefilm, getFilm };
-
-
-
-
-// Временное хранилище в памяти
-let films = [
-  {
-    id: "1",
-    title: "The Matrix",
-    year: 1999,
-    genre: "Sci-Fi",
-  },
-  {
-    id: "2", 
-    title: "Interstellar",
-    year: 2014,
-    genre: "Sci-Fi",
-  }
-];
+const db = require('../config/database');
 
 async function getAllFilms() {
-  return films;
+    const result = await db.query('SELECT * FROM film');
+    return result.rows;
 }
 
 async function addFilm(filmData) {
-  const newFilm = {
-    id: (films.length + 1).toString(),
-    title: filmData.title,
-    year: parseInt(filmData.year),
-    genre: filmData.genre,
-  };
-  
-  films.push(newFilm);
-  return newFilm;
+    const { name, date_release } = filmData;
+    const result = await db.query(
+        'INSERT INTO film (name, date_release) VALUES ($1, $2) RETURNING *',
+        [name, date_release]
+    );
+    return result.rows[0];
 }
 
-async function deleteFilm(id) {
-  const index = films.findIndex(film => film.id === id);
-  if (index === -1) return null;
-  
-  return films.splice(index, 1)[0];
+async function deleteFilm(filmData) {
+    const { id } = filmData;
+    const result = await db.query('DELETE FROM film WHERE id = $1 RETURNING *', 
+        [id]
+    );
+    return result.rows[0];
 }
 
-async function updateFilm(id, filmData) {
-  const index = films.findIndex(film => film.id === id);
-  if (index === -1) return null;
-  
-  films[index] = {
-    ...films[index],
-    ...filmData,
-    updatedAt: new Date()
-  };
-  
-  return films[index];
+async function updateFilm(filmData) {
+    const { id, name, date_release } = filmData;
+    const result = await db.query('UPDATE film SET name = $1, date_release = $2 WHERE id = $3 RETURNING *', 
+        [name, date_release, id]
+    );
+    return result.rows[0];
 }
 
-async function getFilmById(id) {
-  return films.find(film => film.id === id) || null;
+async function getFilm(filmData) {
+    const { id } = filmData;
+    const result = await db.query('SELECT * FROM film WHERE id = $1',
+        [id]
+    );
+    return result.rows[0];
 }
 
 module.exports = { 
-  getAllFilms, 
-  addFilm, 
-  deleteFilm, 
-  updateFilm, 
-  getFilmById 
+    getAllFilms, 
+    addFilm, 
+    deleteFilm, 
+    updateFilm, 
+    getFilm,
 };
