@@ -43,6 +43,7 @@ function App() {
           <img src={InYan} alt="image sdox" className="InYan" />
           </button>       
         </div>
+        
         </header>
 
       <body>
@@ -56,7 +57,7 @@ function App() {
                   <button className='LeftButton'> <img src={Seriali} alt='image sdox' className='kino'/>Сериалы </button>
                 </div>
                 <div className='Container5'>
-                  <div className='novinkiText'>Новинки кино!</div>
+                  <div className='novinkiText'>Новинки кино! всё самое свежее только на ЧИНА ПИСЕ!</div>
                   <div className='sliderNovinki'></div>
         
 
