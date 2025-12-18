@@ -1,10 +1,17 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import Header from './components/Header.jsx'
-import Home from './components/Home.jsx'
-import Sidebar from './components/Sidebar.jsx'
-import AboutUs from './components/AboutUs.jsx'
-import { BrowserRouter as Router, Routes, Route, Link, BrowserRouter } from 'react-router-dom';
+import Header from './components/Header';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from './components/HomePage';
+import Registration from './components/Registration';
+import Zakladki from './components/Zakladki';
+import MuvieSelection from './components/MovieSelection';
+import Movies from './components/Movies';
+import Serials from './components/Serials';
+
+
+
+
 
 function App() {
   const [darkMode, setDarkMode] = useState(false)
@@ -16,13 +23,18 @@ function App() {
     
   return (
     <>
-    <Header/>
-      <BrowserRouter>
+     <Router>
+        <Header darkMode={darkMode} setDarkMode={setDarkMode} />
         <Routes>
-          <Route path='/home' element={<Home/>}/>
-          <Route path='/aboutUs' element={<AboutUs/>}/>
+          <Route path='serials' element={<Serials/>}/>
+          <Route path='movies' element={<Movies/>}/>
+          <Route path='movieselection' element={<MuvieSelection/>}/>
+          <Route path="/zakladki" element={<Zakladki/>}/>
+          <Route path="/registration" element={<Registration/>}/>
+          <Route path="/" element={<HomePage/>} />
+          
         </Routes>
-      </BrowserRouter>
+    </Router>
     </>
   )
 }
