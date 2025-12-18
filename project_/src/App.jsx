@@ -8,6 +8,7 @@ import Zakladki from './components/Zakladki';
 import MuvieSelection from './components/MovieSelection';
 import Movies from './components/Movies';
 import Serials from './components/Serials';
+import Profile from './components/Profile';
 
 
 
@@ -32,7 +33,7 @@ function App() {
           <Route path="/zakladki" element={<Zakladki/>}/>
           <Route path="/registration" element={<Registration/>}/>
           <Route path="/" element={<HomePage/>} />
-          
+          <Route path='/profile' element={<Profile/>} />
         </Routes>
     </Router>
     </>
