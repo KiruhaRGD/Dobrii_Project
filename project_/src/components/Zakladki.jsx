@@ -2,7 +2,14 @@ import '../App.css';
 function Zakladki(){
     return(
         <>
-          <div className='RegistrationZone'>разные</div>
+            <div className='Container2'>
+                <div className='Container3'>
+                    <div className='Films'>
+                      <div className='novinkiText'>Ваши закладки</div>
+
+                    </div>
+                </div>
+            </div>
         </>
     );
 };
