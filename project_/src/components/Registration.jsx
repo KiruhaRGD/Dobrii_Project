@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import '../App.css';
 function Registration(){
     return(
@@ -18,12 +19,13 @@ function Registration(){
                                 placeholder="Введите пароль"
                             />
                         </div>
-                        <button type="submit" className="register-btn">
+                      <button type="submit" className="register-btn">
                             Зарегистрироваться
                         </button>
                     </form>
                     <div className="login-link">
-                        Уже есть аккаунт? <a href="/">Войти</a>
+                        Уже есть аккаунт? <Link to={"/profile"}><a href="/">Войти</a></Link>
+                        
                     </div>
                 </div>
             </div>
