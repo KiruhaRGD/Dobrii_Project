@@ -13,13 +13,17 @@ function MoviePage() {
         <div className='Container3'>
             <div className="MoviePage">
                 <div className="movieName">{movie.name}</div>
-                <div><img src={movie.picture} alt={movie.name} /></div>
-                <div>{movie.detailed_description}</div>
-                <div>{movie.review_critique}</div>
-                <div>{movie.duration} минут</div>
-                <div>{movie.synopsis}</div>
-                <div>{movie.date_release}</div>
-                <div>{movie.actor} </div>
+                <div className="blok1">
+                  <div><img src={movie.picture} alt={movie.name} /></div>
+                  <div className="blok2">
+                    <div><div className="text">Описание:</div> {movie.detailed_description}</div>
+                    <div><div className="text">Мнение критиков:</div>{movie.review_critique}</div>
+                    <div><div className="text">Длительность:</div>{movie.duration} минут</div>
+                    <div><div className="text">Дата выпуска:</div>{movie.date_release}</div>
+                    <div><div className="text">В главных ролях:</div> {movie.duration}<div></div>{movie.duration}</div> 
+                  </div>
+              </div>
+              <div className="blok3"></div>
             </div>
         </div>
     </div>

@@ -1,3 +1,10 @@
+.movieName{
+    margin-top: 12px;
+    margin-bottom: 12px;
+    font-size: 48px;
+    display: flex;
+    justify-content: center;
+}
 .MoviePage{
     height: auto;
     display: flex;
@@ -7,4 +14,30 @@
     height: 450px;
     width: 300px;
     border-radius: 50px;
+    border: 3px solid black;
+}
+.blok1{
+    display: flex;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+.blok2{
+    background-color: rgb(214, 214, 214);
+    padding: 20px;
+    margin-left: 50px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+    
+}
+.text{
+    font-weight: bold;
+}
+.blok3{
+    background-color: rgb(214, 214, 214);
+    margin: 20px 50px;
+    width: auto;
+    height: 300px;
+    border-radius: 30px;
 }
