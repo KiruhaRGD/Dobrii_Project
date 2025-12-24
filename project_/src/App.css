@@ -511,7 +511,7 @@ header{
   transform: translateY(-10%);
   width: 40px;
   height: 40px;
-  background: rgb(207, 207, 207);
+  background: rgba(255, 255, 255, 0);
   cursor: pointer;
   border-radius: 50%;
   border: 1px solid black;
@@ -532,7 +532,7 @@ header{
   content: '◀';
 }
 .dark-theme .swiper-button-prev, .swiper-button-next{
-  background-color: #666666ab;
+  background-color: #ffffff00;
   color: white;
 }
 .dark-theme .jenres-btn{

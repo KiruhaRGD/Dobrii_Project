@@ -9,7 +9,8 @@ import MuvieSelection from './components/MovieSelection';
 import Movies from './components/Movies';
 import Serials from './components/Serials';
 import Profile from './components/Profile';
-
+import MovieList from "./components/MovieList";
+import MoviePage from "./components/MoviePage";
 
 
 
@@ -34,6 +35,8 @@ function App() {
           <Route path="/registration" element={<Registration/>}/>
           <Route path="/" element={<HomePage/>} />
           <Route path='/profile' element={<Profile/>} />
+          <Route path="/MovieList" element={<MovieList/>} />
+          <Route path="/movie/:id" element={<MoviePage/>} />
         </Routes>
     </Router>
     </>

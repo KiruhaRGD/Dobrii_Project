@@ -1,0 +1,10 @@
+.MoviePage{
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+.MoviePage img{
+    height: 450px;
+    width: 300px;
+    border-radius: 50px;
+}
