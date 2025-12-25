@@ -1,16 +1,17 @@
 import { Link } from "react-router-dom";
+import "../App.css" 
+import '../cssFiles/Movies.css'
 
 function MovieCard({ movie }) {
   if (!movie) return null;
 
   return (
     <div>
-      <img src={movie.picture} alt={movie.name} />
-      <h3>{movie.name}</h3>
-      <p>{movie.synopsis}</p>
-
-      <Link to={`/movie/${movie.id}`}>
-        <button>Подробнее</button>
+      <Link to={`/movie/${movie.id}`} className="link-reset">
+        <button className="filmCard">
+          <div><img src={movie.picture} alt={movie.name} /></div>
+          <div className="filmName">{movie.name}</div>
+        </button>
       </Link>
     </div>
   );
