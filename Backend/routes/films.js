@@ -3,16 +3,19 @@ const router = express.Router();
 const filmController = require('../controllers/filmController');
 const { authenticateToken } = require('../middlewares/auth');
 
-router.get('/', filmController.getFilms);
+// Основные маршруты
+router.get('/', filmController.getFilms); // Теперь возвращает фильмы с деталями
 router.post('/', filmController.createFilm);
-router.get('/:id', filmController.getFilmById);
+router.get('/:id', filmController.getFilmById); // Теперь возвращает фильм с деталями
 router.put('/:id', filmController.updateFilm);
 router.delete('/:id', filmController.deleteFilm);
 
-// 1. Получить все фильмы с информацией об избранном
-router.get('/with-favorites', authenticateToken, filmController.getFilmsWithFavorites);
+// Альтернативные маршруты для деталей (если нужно сохранить старый функционал)
+router.get('/with-details', filmController.getFilmsWithDetails);
+router.get('/:id/details', filmController.getFilmWithDetails);
 
-// 2. Получить фильм с информацией об избранном
+// Маршруты с избранным
+router.get('/with-favorites', authenticateToken, filmController.getFilmsWithFavorites);
 router.get('/:id/with-favorite', authenticateToken, filmController.getFilmWithFavorite);
 
 module.exports = router;

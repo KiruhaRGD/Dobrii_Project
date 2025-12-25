@@ -4,8 +4,62 @@ const favoriteModel = require('../models/favoriteModel');
 // Получить все фильмы
 async function getFilms(req, res) {
     try {
-        const films = await filmModel.getAllFilms();
+        // Можно выбрать какой вариант использовать:
+        // 1. Старый - без деталей
+        // const films = await filmModel.getAllFilms();
+
+        // 2. Новый - с жанрами, актёрами и режиссёрами
+        const films = await filmModel.getAllFilmsWithDetails();
+
         res.json(films);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
+
+// НОВАЯ ФУНКЦИЯ: Получить все фильмы с деталями (альтернатива старой getFilms)
+async function getFilmsWithDetails(req, res) {
+    try {
+        const films = await filmModel.getAllFilmsWithDetails();
+        res.json(films);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
+
+// Получить фильм по ID
+async function getFilmById(req, res) {
+    try {
+        const id = req.params.id;
+
+        // Можно выбрать какой вариант использовать:
+        // 1. Старый - без деталей
+        // const film = await filmModel.getFilm({ id });
+
+        // 2. Новый - с жанрами, актёрами и режиссёрами
+        const film = await filmModel.getFilmWithDetails({ id });
+
+        if (!film) {
+            return res.status(404).json({ error: 'Film not found' });
+        }
+
+        res.json(film);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
+
+// НОВАЯ ФУНКЦИЯ: Получить фильм с деталями (альтернатива старой getFilmById)
+async function getFilmWithDetails(req, res) {
+    try {
+        const id = req.params.id;
+        const film = await filmModel.getFilmWithDetails({ id });
+
+        if (!film) {
+            return res.status(404).json({ error: 'Film not found' });
+        }
+
+        res.json(film);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -42,23 +96,6 @@ async function createFilm(req, res) {
     }
 }
 
-// Получить фильм по ID
-async function getFilmById(req, res) {
-    try {
-        const id = req.params.id;
-        const film = await filmModel.getFilm({ id });
-
-        if (!film) {
-            return res.status(404).json({ error: 'Film not found' });
-        }
-
-        res.json(film);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-}
-
-// Обновить фильм
 // Обновить фильм
 async function updateFilm(req, res) {
     try {
@@ -118,7 +155,8 @@ async function getFilmWithFavorite(req, res) {
         const filmId = req.params.id;
         const userId = req.user ? req.user.userId : null; // Если есть JWT
 
-        const film = await filmModel.getFilm({ id: filmId });
+        // Используем детальную версию
+        const film = await filmModel.getFilmWithDetails({ id: filmId });
 
         if (!film) {
             return res.status(404).json({ error: 'Film not found' });
@@ -146,7 +184,8 @@ async function getFilmsWithFavorites(req, res) {
     try {
         const userId = req.user ? req.user.userId : null;
 
-        const films = await filmModel.getAllFilms();
+        // Используем детальную версию
+        const films = await filmModel.getAllFilmsWithDetails();
 
         // Для каждого фильма проверяем, в избранном ли он
         const filmsWithFavorites = await Promise.all(
@@ -172,6 +211,8 @@ async function getFilmsWithFavorites(req, res) {
 
 module.exports = {
     getFilms,
+    getFilmsWithDetails, // НОВЫЙ ЭКСПОРТ
+    getFilmWithDetails, // НОВЫЙ ЭКСПОРТ
     createFilm,
     getFilmById,
     updateFilm,
