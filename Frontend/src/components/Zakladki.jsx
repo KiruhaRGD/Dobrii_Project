@@ -3,8 +3,10 @@ import '../App.css';
 function Zakladki(){
     return(
         <>
-          <div className='zakladki'>
-            <div className='hi'>Фильтровать по жанру 
+           <div className='Container22'>
+                <div className='Container33'>
+                    
+                  
               <div class="dropdown-container">
             <select id="genre" name="genre">
             <option value="" disabled selected>Выберите жанр</option>
@@ -18,9 +20,10 @@ function Zakladki(){
             <option value="scifi">Фантастика</option>
             <option value="thriller">Триллер</option>
             </select>
-              </div>
+              
+             </div>
+                </div>
             </div>
-          </div>
         </>
     );
 };

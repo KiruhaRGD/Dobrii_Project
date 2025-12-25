@@ -5,7 +5,7 @@ function Serials(){
             <div className='Container2'>
                 <div className='Container3'>
                     <div className='Films'>
-                      <div className='novinkiText'>Сериалы</div>
+                      <div className='novinkiText'>рандомный фильм</div>
 
                     </div>
                 </div>
