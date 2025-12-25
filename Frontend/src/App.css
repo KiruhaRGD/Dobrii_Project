@@ -247,6 +247,9 @@ header{
   font-size: 48px;
   margin-top: 56px;
 }
+.dark-theme .novinkiText{
+  color: #ffffff;
+}
 .grid-3x3 {
   display: grid;
   grid-template-columns: repeat(3, 1fr); 
@@ -562,12 +565,66 @@ header{
   border-radius: 100px;
   box-shadow: 2px 2px 10px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
-.Parametrs{
+.Parametrs-text{
   font-size: 40px;
   margin-top: 10px;
 }
+.Parametrs{
+  margin: 20px 0px 20px 0px;
+  height: 100%;
+  width: 95%;
+}
+.ParametrsBlok1{
+  display: flex;
+  justify-content: space-around;
+}
+.ParametrsBlok2{
+  height: 120px;
+  display: flex;
+  justify-content:right;
+  align-items: end;
+  margin-right: 50px;
+
+}
+.YearParametr{
+  width: 200px;
+  height: 60px;
+  border-radius: 20px;
+  padding-left: 20px;
+  font-size: 28px;
+  font-family: "Kelly Slab", sans-serif; 
+}
+.DurationParametr{
+  margin: 45px;
+  padding-left: 20px;
+  width: 350px;
+  height: 60px;
+  border-radius: 20px;
+  font-size: 28px;
+  font-family: "Kelly Slab", sans-serif; 
+
+}
+.selectionPodbor{
+  width: 200px;
+  height: 60px;
+  border-radius: 20px;
+  padding-left: 20px;
+  font-size: 28px;
+  font-family: "Kelly Slab", sans-serif; 
+}
+.ButtonParametr{
+  width: 300px;
+  height: 60px;
+  border-radius: 20px;
+  padding-left: 20px;
+  font-size: 28px;
+  font-family: "Kelly Slab", sans-serif; 
+  background-color: #be5959;
+}
+
 .hi{
   display: flex;
   justify-content: center;

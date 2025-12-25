@@ -5,14 +5,17 @@
     display: flex;
     justify-content: center;
 }
+.dark-theme .movieName{
+    color: white;
+}
 .MoviePage{
     height: auto;
     display: flex;
     flex-direction: column;
 }
 .MoviePage img{
-    height: 450px;
-    width: 300px;
+    height: 500px;
+    width: 350px;
     border-radius: 50px;
     border: 3px solid black;
 }
@@ -81,12 +84,20 @@
 }
 .random-film{
     margin-top: 200px;
-    width: 300px;
-    height: 100px;
+    width: 900px;
+    height: 300px;
     border-radius: 100px;
     background-color: rgba(201, 201, 201, 0.801);
 }
 .text-button{
-    font-size: 26px;
+    font-size: 76px;
     font-family: "Kelly Slab", sans-serif; 
+}
+.random-blok{
+    width: 100%;
+    min-height: 50vh;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

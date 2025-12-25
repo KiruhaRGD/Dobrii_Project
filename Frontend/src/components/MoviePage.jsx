@@ -1,45 +1,81 @@
 import { useParams } from "react-router-dom";
-import movies from "./movies.js";
+import { useEffect, useState } from "react";
 import '../App.css';
-import '../cssFiles/Movies.css'
+import '../cssFiles/Movies.css';
 
 function MoviePage() {
   const { id } = useParams();
-  const movie = movies.find(m => m.id === Number(id));
+  const [films, setFilms] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/films/")
+      .then(res => res.json())
+      .then(data => {
+        setFilms(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  if (loading) return <h2>Загрузка...</h2>;
+
+  const movie = films.find(m => String(m.id) === id);
+
   if (!movie) return <h2>Фильм не найден</h2>;
 
   return (
     <div className='Container2'>
-        <div className='Container3'>
-            <div className="MoviePage">
-                <div className="movieName">{movie.name}</div>
-                <div className="blok1">
-                  <div><img src={movie.picture} alt={movie.name} /></div>
-                  <div className="blok2">
-                    <div><div className="text">Описание:</div> {movie.detailed_description}</div>
-                    <div><div className="text">Мнение критиков:</div>{movie.review_critique}</div>
-                    <div><div className="text">Длительность:</div>{movie.duration} минут</div>
-                    <div><div className="text">Дата выпуска:</div>{movie.date_release}</div>
-                    <div><div className="text">В главных ролях:</div> {movie.duration}<div></div>{movie.duration}</div> 
-                  </div>
-              </div>
-              <div className="blok3"></div>
+      <div className='Container3'>
+        <div className="MoviePage">
+          <div className="movieName">{movie.name}</div>
+
+          <div className="blok1">
+            <div>
+              <img src={movie.picture} alt={movie.name} />
             </div>
+
+            <div className="blok2">
+              <div>
+                <div className="text">Описание:</div>
+                {movie.detailed_description}
+              </div>
+
+              {movie.genres?.length > 0 && (
+                <div>
+                  <div className="text">Жанры:</div>
+                  {movie.genres.map(g => g.name ?? g).join(", ")}
+                </div>
+              )}
+
+              <div>
+                <div className="text">Длительность:</div>
+                {movie.duration} минут
+              </div>
+
+              <div>
+                <div className="text">Дата выпуска:</div>
+                {movie.date_release}
+              </div>
+
+              {movie.regisseurs?.length > 0 && (
+              <div>
+                <div className="text">Режисёр:</div>
+                {movie.regisseurs.map(r => r.name ?? r).join(", ")}
+              </div>
+              )}
+
+              {movie.actors?.length > 0 && (
+                <div>
+                  <div className="text">В главных ролях:</div>
+                  {movie.actors.join(", ")}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-
-
-
-
-
-
-
-
-    // <div>
-    //   <h1>{movie.name}</h1>
-    //   <img src={movie.picture} alt={movie.name} />
-    //   <p>{movie.detailed_description}</p>
-    // </div>
   );
 }
 
