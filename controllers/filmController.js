@@ -4,20 +4,14 @@ const favoriteModel = require('../models/favoriteModel');
 // Получить все фильмы
 async function getFilms(req, res) {
     try {
-        // Можно выбрать какой вариант использовать:
-        // 1. Старый - без деталей
-        // const films = await filmModel.getAllFilms();
-
-        // 2. Новый - с жанрами, актёрами и режиссёрами
         const films = await filmModel.getAllFilmsWithDetails();
-
         res.json(films);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 }
 
-// НОВАЯ ФУНКЦИЯ: Получить все фильмы с деталями (альтернатива старой getFilms)
+// Получить все фильмы с деталями
 async function getFilmsWithDetails(req, res) {
     try {
         const films = await filmModel.getAllFilmsWithDetails();
@@ -31,12 +25,6 @@ async function getFilmsWithDetails(req, res) {
 async function getFilmById(req, res) {
     try {
         const id = req.params.id;
-
-        // Можно выбрать какой вариант использовать:
-        // 1. Старый - без деталей
-        // const film = await filmModel.getFilm({ id });
-
-        // 2. Новый - с жанрами, актёрами и режиссёрами
         const film = await filmModel.getFilmWithDetails({ id });
 
         if (!film) {
@@ -49,11 +37,27 @@ async function getFilmById(req, res) {
     }
 }
 
-// НОВАЯ ФУНКЦИЯ: Получить фильм с деталями (альтернатива старой getFilmById)
+// Получить фильм с деталями
 async function getFilmWithDetails(req, res) {
     try {
         const id = req.params.id;
         const film = await filmModel.getFilmWithDetails({ id });
+
+        if (!film) {
+            return res.status(404).json({ error: 'Film not found' });
+        }
+
+        res.json(film);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
+
+// Получить фильм с комментариями
+async function getFilmWithComments(req, res) {
+    try {
+        const id = req.params.id;
+        const film = await filmModel.getFilmWithComments({ id });
 
         if (!film) {
             return res.status(404).json({ error: 'Film not found' });
@@ -153,9 +157,8 @@ async function deleteFilm(req, res) {
 async function getFilmWithFavorite(req, res) {
     try {
         const filmId = req.params.id;
-        const userId = req.user ? req.user.userId : null; // Если есть JWT
+        const userId = req.user ? req.user.userId : null;
 
-        // Используем детальную версию
         const film = await filmModel.getFilmWithDetails({ id: filmId });
 
         if (!film) {
@@ -170,7 +173,7 @@ async function getFilmWithFavorite(req, res) {
         const filmWithFavorite = {
             ...film,
             isFavorite: isFavorite,
-            canFavorite: !!userId // Может ли пользователь добавить в избранное
+            canFavorite: !!userId
         };
 
         res.json(filmWithFavorite);
@@ -184,10 +187,8 @@ async function getFilmsWithFavorites(req, res) {
     try {
         const userId = req.user ? req.user.userId : null;
 
-        // Используем детальную версию
         const films = await filmModel.getAllFilmsWithDetails();
 
-        // Для каждого фильма проверяем, в избранном ли он
         const filmsWithFavorites = await Promise.all(
             films.map(async(film) => {
                 let isFavorite = false;
@@ -209,12 +210,44 @@ async function getFilmsWithFavorites(req, res) {
     }
 }
 
+// Получить фильм с избранным и комментариями
+async function getFilmWithFavoriteAndComments(req, res) {
+    try {
+        const filmId = req.params.id;
+        const userId = req.user ? req.user.userId : null;
+
+        const film = await filmModel.getFilmWithComments({ id: filmId });
+
+        if (!film) {
+            return res.status(404).json({ error: 'Film not found' });
+        }
+
+        let isFavorite = false;
+        if (userId) {
+            isFavorite = await favoriteModel.getFavoriteStatus(userId, filmId);
+        }
+
+        const filmWithFavoriteAndComments = {
+            ...film,
+            isFavorite: isFavorite,
+            canFavorite: !!userId,
+            canComment: !!userId
+        };
+
+        res.json(filmWithFavoriteAndComments);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
+
 module.exports = {
     getFilms,
-    getFilmsWithDetails, // НОВЫЙ ЭКСПОРТ
-    getFilmWithDetails, // НОВЫЙ ЭКСПОРТ
-    createFilm,
+    getFilmsWithDetails,
     getFilmById,
+    getFilmWithDetails,
+    getFilmWithComments,
+    getFilmWithFavoriteAndComments,
+    createFilm,
     updateFilm,
     deleteFilm,
     getFilmWithFavorite,

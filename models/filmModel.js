@@ -5,7 +5,7 @@ async function getAllFilms() {
     return result.rows;
 }
 
-// НОВАЯ ФУНКЦИЯ: Получить все фильмы с жанрами, актёрами и режиссёрами
+// Получить все фильмы с жанрами, актёрами и режиссёрами
 async function getAllFilmsWithDetails() {
     const query = `
         SELECT 
@@ -35,7 +35,7 @@ async function getAllFilmsWithDetails() {
     }));
 }
 
-// НОВАЯ ФУНКЦИЯ: Получить один фильм с жанрами, актёрами и режиссёрами
+// Получить один фильм с жанрами, актёрами и режиссёрами
 async function getFilmWithDetails(filmData) {
     const { id } = filmData;
 
@@ -70,6 +70,59 @@ async function getFilmWithDetails(filmData) {
         genres: film.genres ? film.genres.filter(g => g !== null) : [],
         actors: film.actors ? film.actors.filter(a => a !== null) : [],
         regisseurs: film.regisseurs ? film.regisseurs.filter(r => r !== null) : []
+    };
+}
+
+// Получить фильм с комментариями
+async function getFilmWithComments(filmData) {
+    const { id } = filmData;
+
+    const query = `
+        SELECT 
+            f.*,
+            ARRAY_AGG(DISTINCT g.genre) as genres,
+            ARRAY_AGG(DISTINCT a.name || ' ' || a.surname) as actors,
+            ARRAY_AGG(DISTINCT r.name || ' ' || r.surname) as regisseurs,
+            (
+                SELECT JSON_AGG(
+                    JSON_BUILD_OBJECT(
+                        'id', c.id,
+                        'comment', c.comment,
+                        'user_id', c.users_id,
+                        'nickname', u.nickname,
+                        'created_at', c.created_at
+                    )
+                )
+                FROM comment c
+                JOIN users u ON u.id = c.users_id
+                WHERE c.film_id = f.id
+            ) as comments
+        FROM film f
+        LEFT JOIN genres gf ON gf.id_film = f.id
+        LEFT JOIN genre g ON g.id = gf.id_genre
+        LEFT JOIN actors af ON af.id_film = f.id
+        LEFT JOIN actor a ON a.id = af.id_actor
+        LEFT JOIN regisseurs rf ON rf.id_film = f.id
+        LEFT JOIN regisseur r ON r.id = rf.id_regisseur
+        WHERE f.id = $1
+        GROUP BY f.id
+    `;
+
+    const result = await db.query(query, [id]);
+
+    if (result.rows.length === 0) {
+        return null;
+    }
+
+    const film = result.rows[0];
+
+    // Обрабатываем массивы
+    return {
+        ...film,
+        genres: film.genres ? film.genres.filter(g => g !== null) : [],
+        actors: film.actors ? film.actors.filter(a => a !== null) : [],
+        regisseurs: film.regisseurs ? film.regisseurs.filter(r => r !== null) : [],
+        comments: film.comments || []
     };
 }
 
@@ -128,8 +181,9 @@ async function getFilm(filmData) {
 
 module.exports = {
     getAllFilms,
-    getAllFilmsWithDetails, // НОВЫЙ ЭКСПОРТ
-    getFilmWithDetails, // НОВЫЙ ЭКСПОРТ
+    getAllFilmsWithDetails,
+    getFilmWithDetails,
+    getFilmWithComments,
     addFilm,
     deleteFilm,
     updateFilm,
