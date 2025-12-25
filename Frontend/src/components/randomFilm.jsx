@@ -1,16 +1,16 @@
 import '../App.css';
-function Serials(){
+function randomFilm(){
     return(
         <>
             <div className='Container2'>
                 <div className='Container3'>
                     <div className='Films'>
-                      <div className='novinkiText'>Сериалы</div>
-
+                      <div className='novinkiText'>Случайный фильм</div>
+                        
                     </div>
                 </div>
             </div>
         </>
     );
 };
-export default Serials;
+export default randomFilm;

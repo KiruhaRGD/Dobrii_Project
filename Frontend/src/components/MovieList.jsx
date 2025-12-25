@@ -6,6 +6,8 @@ import MovieCard from "./MovieCard";
 import movies from "./movies";
 
 function MovieList() {
+
+
   return (
         <>
             <div className='Container2'>
