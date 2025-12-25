@@ -12,7 +12,11 @@ function RandomFilm(){
         .then((data) => setFilms(data));
       }, []);
 
-
+    const showRandomFilm = () => {
+        if (films.length === 0) return;
+        const randomIndex = Math.floor(Math.random() * films.length);
+        setFilm(films[randomIndex]);
+    };
 
 
 
