@@ -3,9 +3,16 @@
 import "../App.css" 
 import '../cssFiles/Movies.css'
 import MovieCard from "./MovieCard";
-import movies from "./movies";
+import React, { useState, useEffect } from "react";
 
 function MovieList() {
+  
+  const [films, setFilms] = useState([])
+  React.useEffect(() => {
+    fetch("http://localhost:3000/films/")
+    .then((res) => res.json())
+    .then((data) => setFilms(data));
+  }, []);
 
 
   return (
@@ -15,13 +22,14 @@ function MovieList() {
                     <div className='Films'>
                       <div className='novinkiText'>Фильмы</div>
                       <div className="grid-films">
-                        {movies.map(movie => (<MovieCard key={movie.id} movie={movie}/>))}
+                        {films.map(movie => (
+                          <MovieCard key={movie.id} movie={movie}/>
+                        ))}
                       </div>
                     </div>
                 </div>
             </div>
         </>
-
   );
 }
 

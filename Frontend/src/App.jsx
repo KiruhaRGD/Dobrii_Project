@@ -6,7 +6,7 @@ import HomePage from './components/HomePage';
 import Registration from './components/Registration';
 import Zakladki from './components/Zakladki';
 import MuvieSelection from './components/MovieSelection';
-import randomFilm from './components/randomFilm';
+import RandomFilm from './components/RandomFilm';
 import Profile from './components/Profile';
 import MovieList from "./components/MovieList";
 import MoviePage from "./components/MoviePage";
@@ -27,7 +27,7 @@ function App() {
      <Router>
         <Header darkMode={darkMode} setDarkMode={setDarkMode} />
         <Routes>
-          <Route path='randomFilm' element={<randomFilm/>}/>  
+          <Route path='RandomFilm' element={<RandomFilm/>}/>  
           <Route path='movieselection' element={<MuvieSelection/>}/>
           <Route path="/zakladki" element={<Zakladki/>}/>
           <Route path="/registration" element={<Registration/>}/>

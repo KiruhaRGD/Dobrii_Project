@@ -79,3 +79,14 @@
   text-decoration: none;
   color: inherit;
 }
+.random-film{
+    margin-top: 200px;
+    width: 300px;
+    height: 100px;
+    border-radius: 100px;
+    background-color: rgba(201, 201, 201, 0.801);
+}
+.text-button{
+    font-size: 26px;
+    font-family: "Kelly Slab", sans-serif; 
+}
