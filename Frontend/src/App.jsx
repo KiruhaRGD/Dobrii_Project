@@ -10,7 +10,7 @@ import RandomFilm from './components/RandomFilm';
 import Profile from './components/Profile';
 import MovieList from "./components/MovieList";
 import MoviePage from "./components/MoviePage";
-
+import GenrePage from "./components/GenrePage";
 
 
 
@@ -35,6 +35,7 @@ function App() {
           <Route path='/profile' element={<Profile/>} />
           <Route path="/MovieList" element={<MovieList/>} />
           <Route path="/movie/:id" element={<MoviePage />} />
+          <Route path="/genre/:genre" element={<GenrePage />} />
         </Routes>
     </Router>
     </>

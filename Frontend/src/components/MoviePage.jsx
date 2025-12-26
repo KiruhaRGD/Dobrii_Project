@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import remont from '../assets/remont.jpg';
 import '../App.css';
 import '../cssFiles/Movies.css';
 
@@ -53,10 +54,12 @@ function MoviePage() {
                 {movie.duration} минут
               </div>
 
-              <div>
-                <div className="text">Дата выпуска:</div>
-                {movie.date_release}
-              </div>
+              {movie.date_release && (
+                <div>
+                  <div className="text">Дата выпуска:</div>
+                  {new Date(movie.date_release).toLocaleDateString("ru-RU")}
+                </div>
+              )}
 
               {movie.regisseurs?.length > 0 && (
               <div>
@@ -72,6 +75,11 @@ function MoviePage() {
                 </div>
               )}
             </div>
+          </div>
+          <div className="blok3">
+              <div className="movieName">Комментарии</div>
+              <img src={remont} className="remont" />
+              <div className="movieName">Тут идёт ремонт...</div>
           </div>
         </div>
       </div>

@@ -34,18 +34,27 @@
     justify-content:space-between;
     
 }
+.dark-theme .blok2{
+    background-color: #797979;
+    color: white;
+}
+.dark-theme .blok3{
+    background-color: #797979;
+}
 .text{
     font-weight: bold;
 }
 .blok3{
+    display: flex;
     background-color: rgb(214, 214, 214);
     margin: 20px 50px;
     width: auto;
-    height: 300px;
+    height: auto;
     border-radius: 30px;
+    align-items: center;
+    flex-direction: column;
 }
 .filmCard{
-    margin: 25px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -53,10 +62,11 @@
     font-size: 18px;
     font-weight: bold;
     background-color: rgba(209, 209, 209, 0.582);
-    width: 90%;
+    width: 80%;
     height: 90%;
     border-radius: 20px;
     cursor: pointer;
+    
 }
 .grid-films{
     display: grid;
@@ -65,6 +75,10 @@
     /* gap: 50px;  */
     width: 100%;
     height: 500px;
+}
+.dark-theme .filmCard{
+    background-color: #797979;
+    color: #ffffff;
 }
 .filmName{
     font-size: 24px;
@@ -100,4 +114,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.remont{
+    border-radius: 50% !important;
+    width: 400px !important;
+    height: 400px !important;
 }

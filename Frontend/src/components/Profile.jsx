@@ -1,3 +1,4 @@
+import remont from '../assets/remont.jpg';
 import '../App.css';
 import gosling from '../assets/gosling.jpg';
 function Profile(){
@@ -14,20 +15,21 @@ function Profile(){
                     </div>
                     <div className='profileCon2'>
                         <div>Любимые фильмы</div>  
+                        <img src={remont} className="remont" />
+                        <div className="movieName">Тут идёт ремонт...</div>
                     </div>
                      <div className='profileCon3'>Любимые жанры 
                         
-                       <div> 1. Комедия</div>
+                        <div> 1. Комедия</div>
                        
-                        <div>2.hallow kitty porn</div>
+                        <div> 2. Драма</div>
                         
-                      <div> 3. gang bang</div>
+                        <div> 3. Хоррор</div>
                        
-                        <div> 4. Cummedia</div>
+                        <div> 4. Боевики</div>
                         
-                        <div> 5. brbrpatapim</div></div> 
+                        <div> 5. Триллер</div></div> 
                 </div>
-                
             </div>
         </>
     );
